@@ -1,6 +1,7 @@
 import { BrowserRouter , Routes , Route } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import Banner from './components/Banner/Banner';
+import Products from './components/Products/Products';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
 
         </Routes>
         <Banner />
+        <Products />
       </BrowserRouter>
     </>
   );
