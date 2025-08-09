@@ -11,8 +11,10 @@ const ProductCard = ({ product }) => {
             <div className={s.card__image__container}>
                 <img className={s.card__image} src={imageUri} alt="Product image"/>
             </div>
-            <h3 className={s.product__name}>{title}</h3>
-            <h3 className={s.product__price}>{price}$</h3>
+            <div className={s.card__desc}>
+                <h3 className={s.product__name}>{title}</h3>
+                <h3 className={s.product__price}>{price}$</h3>
+            </div>
         </div>
     );
 }

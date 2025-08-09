@@ -1,0 +1,16 @@
+.header {
+    margin: 0 auto;
+    width: 1510px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.4rem;
+}
+
+.header__link {
+    color: black;
+    font-size: 1.2rem;
+}
+
+.header__text {
+    font-size: 2rem;
+}

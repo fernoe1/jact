@@ -6,7 +6,6 @@ import { jactLogoLongTransparent } from '../../assets/images';
 
 import s from './Navigation.module.css';
 import AuthButton from './AuthButton';
-import SaleHeader from './SaleHeader';
 
 const Navigation = () => {
     return (
@@ -23,20 +22,15 @@ const Navigation = () => {
                         <li className={s.navbar__links__link}>
                             <NavLink className={s.navlink} to="/shop">Shop</NavLink>
                         </li>
-                        <li className={s.navbar__links__link}>
-                            <NavLink className={s.navlink} to="/about">About</NavLink>
-                        </li>
                     </ul>
                 </div>
                 
                 <div className={s.navbar__right}>
                     <Search />
-                    <AuthButton text={'Sign Up'} />
-                    <AuthButton text={'Sign In'} />
+                    <AuthButton className={s.navbar__auth} text="Sign Up" variant="primary" />
+                    <AuthButton className={s.navbar__auth} text="Sign In" />
                 </div>
             </nav>
-
-            <SaleHeader />
         </div>
     );
 }

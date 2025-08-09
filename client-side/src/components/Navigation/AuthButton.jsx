@@ -1,9 +1,11 @@
 import s from './AuthButton.module.css';
 
-const AuthButton = ( {text} ) => {
+const AuthButton = ({ text, variant }) => {
     return (
         <>
-            <button className={s.button}>{text}</button>
+            <button className={`${s.button} ${variant === 'primary' ? s.primary : ''}`}>
+                {text}
+            </button>
         </>
     );
 }

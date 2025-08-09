@@ -1,0 +1,28 @@
+.footer {
+    padding-bottom: 50px;
+    margin-top: 100px;
+    background-color: whitesmoke;
+}
+
+.logo__container {
+    text-align: center;
+    padding: 20px;
+}
+
+.logo__container h3 {
+    font-size: 4rem;
+}
+
+.copyright {
+    text-align: center;
+    font-size: 1rem;
+}
+
+.developer {
+    margin-left: 20px;
+    font-size: 1rem;
+}
+
+.developer a {
+    color: black;
+}
