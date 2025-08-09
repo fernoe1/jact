@@ -8,23 +8,23 @@ public class Product {
     private String title;
     private double price;
     private String description;
-    private String category;
+    private int categoryId;
     private String imageUri;
 
-    public Product(int id, String title, double price, String description, String category, String imageUri) {
+    public Product(int id, String title, double price, String description, int categoryId, String imageUri) {
         this.id = id;
         this.title = title;
         this.price = price;
         this.description = description;
-        this.category = category;
+        this.categoryId = categoryId;
         this.imageUri = imageUri;
     }
 
-    public Product(String title, double price, String description, String category, String imageUri) {
+    public Product(String title, double price, String description, int categoryId, String imageUri) {
         this.title = title;
         this.price = price;
         this.description = description;
-        this.category = category;
+        this.categoryId = categoryId;
         this.imageUri = imageUri;
     }
 
@@ -64,12 +64,12 @@ public class Product {
         return description;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategory(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
     public void setImageUri(String imageUri) {

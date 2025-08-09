@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.serverside.dao.impl.ProductDAO;
 import org.example.serverside.model.Product;
+import org.example.serverside.util.CorsUtil;
 import org.example.serverside.util.JsonUtil;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CorsUtil.setCorsHeaders(resp);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 
@@ -47,6 +49,7 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        CorsUtil.setCorsHeaders(resp);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
 

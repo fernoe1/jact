@@ -35,7 +35,7 @@ public class ProductDAO implements IProductDAO {
             while (rs.next()) {
                 products.add(new Product(rs.getInt("id"), rs.getString("title"),
                         rs.getDouble("price"), rs.getString("description"),
-                        rs.getString("category"), rs.getString("image_uri")));
+                        rs.getInt("category_id"), rs.getString("image_uri")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -57,7 +57,7 @@ public class ProductDAO implements IProductDAO {
             if (rs.next()) {
                 product = new Product(rs.getInt("id"), rs.getString("title"),
                         rs.getDouble("price"), rs.getString("description"),
-                        rs.getString("category"), rs.getString("image_uri"));
+                        rs.getInt("category_id"), rs.getString("image_uri"));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -75,7 +75,7 @@ public class ProductDAO implements IProductDAO {
             ps.setString(1, product.getTitle());
             ps.setDouble(2, product.getPrice());
             ps.setString(3, product.getDescription());
-            ps.setString(4, product.getCategory());
+            ps.setInt(4, product.getCategoryId());
             ps.setString(5, product.getImageUri());
 
             return ps.executeUpdate() > 0;
@@ -108,7 +108,7 @@ public class ProductDAO implements IProductDAO {
             ps.setString(1, product.getTitle());
             ps.setDouble(2, product.getPrice());
             ps.setString(3, product.getDescription());
-            ps.setString(4, product.getCategory());
+            ps.setInt(4, product.getCategoryId());
             ps.setString(5, product.getImageUri());
             ps.setInt(6, product.getId());
 
