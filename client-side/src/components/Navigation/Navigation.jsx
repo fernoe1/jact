@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom';
 
-import Search from './Search';
+import Search from './Search/Search';
 
 import { jactLogoLongTransparent } from '../../assets/images';
 
 import s from './Navigation.module.css';
-import AuthButton from './AuthButton';
+import AuthButton from './AuthButton/AuthButton';
 
 const Navigation = () => {
     return (

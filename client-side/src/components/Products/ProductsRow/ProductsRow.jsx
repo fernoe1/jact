@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import ProductCard from './ProductCard';
+import ProductCard from '../ProductCard/ProductCard';
 import s from './ProductsRow.module.css';
 
 const ProductsRow = () => {
