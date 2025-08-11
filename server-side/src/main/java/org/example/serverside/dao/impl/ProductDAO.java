@@ -45,6 +45,49 @@ public class ProductDAO implements IProductDAO {
     }
 
     @Override
+    public List<Product> getProductsByCategory(int categoryId) {
+        List<Product> products = new ArrayList<>();
+
+        String sql = """
+        WITH RECURSIVE category_tree AS (
+            SELECT id
+            FROM categories
+            WHERE id = ?
+
+            UNION ALL
+
+            SELECT c.id
+            FROM categories c
+            INNER JOIN category_tree ct ON c.parent_id = ct.id
+        )
+        SELECT p.*
+        FROM products p
+        WHERE p.category_id IN (SELECT id FROM category_tree)
+        """;
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, categoryId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                products.add(new Product(
+                        rs.getInt("id"),
+                        rs.getString("title"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        rs.getInt("category_id"),
+                        rs.getString("image_uri")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return products;
+    }
+
+    @Override
     public Product getProduct(int id) {
         Product product = null;
 
@@ -68,7 +111,7 @@ public class ProductDAO implements IProductDAO {
 
     @Override
     public boolean addProduct(Product product) {
-        String sql = "INSERT INTO products (title, price, description, category, image_uri) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO products (title, price, description, category_id, image_uri) VALUES (?, ?, ?, ?, ?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
 
@@ -100,7 +143,7 @@ public class ProductDAO implements IProductDAO {
     @Override
     public boolean updateProduct(Product product) {
         String sql = "UPDATE products SET title = ?, price = ?," +
-                " description = ?, category = ?, image_uri = ?" +
+                " description = ?, category_id = ?, image_uri = ?" +
                 " WHERE id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);

@@ -26,13 +26,13 @@ public class CategoryDAO implements ICategoryDAO {
     public List<Category> getMainCategories() {
         ArrayList<Category> categories = new ArrayList<>();
 
-        String sql = "SELECT * FROM categories WHERE parent_id IS NULL;";
+        String sql = "SELECT * FROM categories WHERE parent_id = 1;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                categories.add(new Category(rs.getInt(1), rs.getString(2)));
+                categories.add(new Category(rs.getInt(1), rs.getString(2), rs.getInt(3)));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -63,12 +63,11 @@ public class CategoryDAO implements ICategoryDAO {
 
     @Override
     public boolean addCategory(Category category) {
-        String sql = "INSERT INTO categories (id, name, parent_id) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO categories (name, parent_id) VALUES (?, ?);";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, category.getId());
-            ps.setString(2, category.getName());
-            ps.setInt(3, category.getParentId());
+            ps.setString(1, category.getName());
+            ps.setInt(2, category.getParentId());
 
             return ps.executeUpdate() > 0;
         } catch (SQLException e) {

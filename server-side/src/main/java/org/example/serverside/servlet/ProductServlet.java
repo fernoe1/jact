@@ -54,6 +54,12 @@ public class ProductServlet extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
 
         String pathInfo = req.getPathInfo();
+        String parameter = req.getParameter("categoryId");
+
+        if (parameter != null) {
+            handleGetAllProductsByCategoryId(req, resp, Integer.parseInt(parameter));
+            return;
+        }
 
         if (pathInfo == null || pathInfo.equals("/")) {
             handleGetAllProducts(req, resp);
@@ -68,6 +74,11 @@ public class ProductServlet extends HttpServlet {
                 resp.getWriter().write("{\"error\": \"Invalid path\"}");
             }
         }
+    }
+
+    private void handleGetAllProductsByCategoryId(HttpServletRequest req, HttpServletResponse resp, int categoryId) throws IOException {
+        ObjectMapper mapper = JsonUtil.getMapper();
+        resp.getWriter().write(mapper.writeValueAsString(productDAO.getProductsByCategory(categoryId)));
     }
 
     private void handleGetAllProducts(HttpServletRequest req, HttpServletResponse resp) throws IOException {

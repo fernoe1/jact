@@ -7,6 +7,8 @@ import java.util.List;
 public interface IProductDAO {
     List<Product> getAllProducts();
 
+    List<Product> getProductsByCategory(int categoryId);
+
     Product getProduct(int id);
 
     boolean addProduct(Product product);
