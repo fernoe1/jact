@@ -1,5 +1,5 @@
 import Banner from "../components/Banner/Banner";
-import Products from "../components/Products/ProductsHero/ProductsHero";
+import ProductsHero from "../components/Products/ProductsHero/ProductsHero";
 import Buffer from "../components/Navigation/Buffer/Buffer";
 
 const Home = () => {
@@ -7,7 +7,7 @@ const Home = () => {
         <>
             <Buffer />
             <Banner />
-            <Products />
+            <ProductsHero />
         </>
     );
 }

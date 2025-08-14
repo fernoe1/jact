@@ -1,0 +1,9 @@
+.breadcrumbs {
+    border: 1px solid red;
+    margin: 2rem 8rem;
+}
+
+.breadcrumbs__list {
+    display: flex;
+    align-items: center;
+}

@@ -1,0 +1,22 @@
+.breadcrumb {
+    font-size: 1.2rem;
+}
+
+.breadcrumb__link {
+    color: rgb(120, 120, 120);
+}
+
+.breadcrumb__link--clickable {
+    color: black;
+    text-decoration: underline;
+}
+
+.breadcrumb__link--clickable:hover {
+    cursor: pointer;
+}
+
+.breadcrumb:not(:nth-last-child(2))::after {
+  content: "/";
+  margin: 0 0.5rem;
+  color: black
+}

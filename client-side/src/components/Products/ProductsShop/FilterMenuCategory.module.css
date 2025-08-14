@@ -1,0 +1,23 @@
+.categoryContainer {
+
+}
+
+.category {
+    display: block;
+    padding: 4px;
+    transition: background-color 500ms;
+}
+
+.category:last-child {
+    margin-bottom: 2px;
+}
+
+.categoryLine {
+    margin-left: 4px;
+    width: 80%;
+    background-color: black;
+}
+
+.category:hover {
+    background-color: whitesmoke;
+}

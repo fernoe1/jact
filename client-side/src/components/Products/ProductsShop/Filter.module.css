@@ -1,0 +1,28 @@
+.filter {
+    display: flex;
+    align-items: center;
+    border: 1px solid blue;
+    margin-left: 0.5rem;
+    padding: 2px;
+    width: fit-content;
+}
+
+.lineWrapper {
+    position: relative;
+}
+
+.filter:hover {
+    cursor: pointer;
+}
+
+.filter__line {
+    height: 1px;
+    width: 150px;
+    background-color: black;
+    margin-right: 0.4rem;
+}
+
+.filter__icon {
+    font-size: 1.4rem;
+    color: rgb(0, 0, 0);
+}

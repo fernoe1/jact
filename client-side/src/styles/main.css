@@ -2,3 +2,13 @@
     padding: 0;
     margin: 0;
 }
+
+.layout {
+  min-height: 100vh;          /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;                    /* Push footer down if page is short */
+}
