@@ -22,8 +22,7 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CorsUtil.setCorsHeaders(resp);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
+        CorsUtil.setContentAndEncoding(resp);
 
         ObjectMapper objectMapper = JsonUtil.getMapper();
         Product product;
@@ -50,8 +49,7 @@ public class ProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CorsUtil.setCorsHeaders(resp);
-        resp.setContentType("application/json");
-        resp.setCharacterEncoding("UTF-8");
+        CorsUtil.setContentAndEncoding(resp);
 
         String pathInfo = req.getPathInfo();
         String parameter = req.getParameter("categoryId");
