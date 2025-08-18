@@ -55,4 +55,24 @@ public class UserDAO implements IUserDAO {
 
         return user;
     }
+
+    @Override
+    public User getUserByEmail(String email) {
+        User user = null;
+
+        String sql = "SELECT * FROM users WHERE email = ?;";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                user = new User(rs.getInt("id"), rs.getString("name"),
+                        rs.getString("email"), rs.getString("password"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return user;
+    }
 }

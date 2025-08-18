@@ -6,4 +6,6 @@ public interface IUserDAO {
     boolean addUser(User user);
 
     User getUserByName(String name);
+
+    User getUserByEmail(String email);
 }

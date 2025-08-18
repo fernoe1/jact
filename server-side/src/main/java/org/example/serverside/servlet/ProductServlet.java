@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.serverside.dao.impl.ProductDAO;
 import org.example.serverside.model.Product;
-import org.example.serverside.util.CorsUtil;
 import org.example.serverside.util.JsonUtil;
+import org.example.serverside.util.ResponseUtil;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -17,12 +17,11 @@ import java.util.regex.Pattern;
 
 @WebServlet(name = "productServlet", value = "/products/*")
 public class ProductServlet extends HttpServlet {
-    ProductDAO productDAO = new ProductDAO();
+    private final ProductDAO productDAO = new ProductDAO();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CorsUtil.setCorsHeaders(resp);
-        CorsUtil.setContentAndEncoding(resp);
+        ResponseUtil.setContentAndEncoding(resp);
 
         ObjectMapper objectMapper = JsonUtil.getMapper();
         Product product;
@@ -48,8 +47,7 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CorsUtil.setCorsHeaders(resp);
-        CorsUtil.setContentAndEncoding(resp);
+        ResponseUtil.setContentAndEncoding(resp);
 
         String pathInfo = req.getPathInfo();
         String parameter = req.getParameter("categoryId");

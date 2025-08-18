@@ -8,19 +8,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.serverside.dao.impl.CategoryDAO;
 import org.example.serverside.model.Category;
-import org.example.serverside.util.CorsUtil;
 import org.example.serverside.util.JsonUtil;
+import org.example.serverside.util.ResponseUtil;
 
 import java.io.IOException;
 
 @WebServlet(name = "categoryServlet", value = "/categories/*")
 public class CategoryServlet extends HttpServlet {
-    CategoryDAO categoryDAO = new CategoryDAO();
+    private final CategoryDAO categoryDAO = new CategoryDAO();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CorsUtil.setCorsHeaders(resp);
-        CorsUtil.setContentAndEncoding(resp);
+        ResponseUtil.setContentAndEncoding(resp);
 
         ObjectMapper objectMapper = JsonUtil.getMapper();
         Category category;
@@ -46,8 +45,7 @@ public class CategoryServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CorsUtil.setCorsHeaders(resp);
-        CorsUtil.setContentAndEncoding(resp);
+        ResponseUtil.setContentAndEncoding(resp);
 
         ObjectMapper objectMapper = JsonUtil.getMapper();
 
