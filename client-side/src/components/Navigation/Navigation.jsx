@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import Search from './Search/Search';
 
@@ -8,6 +8,10 @@ import s from './Navigation.module.css';
 import AuthButton from './AuthButton/AuthButton';
 
 const Navigation = () => {
+    const navigate = useNavigate();
+
+
+
     return (
         <div>
             <nav className={s.navbar}>
@@ -27,8 +31,15 @@ const Navigation = () => {
                 
                 <div className={s.navbar__right}>
                     <Search />
-                    <AuthButton className={s.navbar__auth} text="Sign Up" variant="primary" />
-                    <AuthButton className={s.navbar__auth} text="Sign In" />
+                    <AuthButton 
+                        className={s.navbar__auth} 
+                        text="Sign Up" variant="primary" 
+                        onClick={() => {navigate("/signup")}}
+                    />
+                    <AuthButton 
+                        className={s.navbar__auth} 
+                        text="Sign In" 
+                    />
                 </div>
             </nav>
         </div>

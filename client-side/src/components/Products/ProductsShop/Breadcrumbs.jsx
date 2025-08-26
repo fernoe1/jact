@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import s from './Breadcrumbs.module.css';
 
 const Breadcrumbs = (props) => {

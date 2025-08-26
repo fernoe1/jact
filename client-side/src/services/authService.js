@@ -10,7 +10,8 @@ const register = async(user) => {
     });
 
     if (!response.ok) {
-        throw new Error(await response.json().error || 'Registration failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Registration failed');
     }
 
     return await response.json();
@@ -26,10 +27,27 @@ const login = async(credentials) => {
     });
 
     if (!response.ok) {
-        throw new Error(await response.json().error || 'Login failed');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Login failed');
     }
 
     return await response.json();
 };
 
-export { register, login };
+const verifyToken = async(token) => {
+    const response = await fetch(`${BASE_URL}/verify`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Token verification failed');
+    }
+
+    return await response.json();
+};
+
+export { register, login, verifyToken };

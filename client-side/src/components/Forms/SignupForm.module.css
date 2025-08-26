@@ -1,0 +1,42 @@
+.form {
+    border: 1px solid #c5c5c5;
+    margin: 2rem auto;
+    width: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formInputContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+}
+
+.formInput {
+    border: 1px solid #c5c5c5;
+    height: 2rem;
+    padding: 0 6px;
+    font-weight: bold;
+    margin-bottom: 1.4rem;
+    margin-top: 0.4rem;
+}
+
+.formInput:focus {
+    outline: none;
+}
+
+.formSubmit {
+    border-radius: 0px;
+    border: none;
+    background-color: black;
+    color: white;
+    height: 45px;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 1rem 0;
+}
+
+.formSubmit:hover {
+    cursor: pointer;
+}

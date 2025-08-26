@@ -1,17 +1,17 @@
-const { createContext, useState, useEffect, useContext } = require("react");
-import { login as loginService, verifyToken } from './services/authService';
+import { createContext, useState, useEffect } from "react";
+import { login as loginService, verifyToken } from "../services/authService";
 
 const AuthContext = createContext();
 
-export const AuthProvider = ( { children } ) => {
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(localStorage.getItem('token'));
-    const [authenticated, isAuthenticated] = useState(false);
-    const [loading, isLoading] = useState(true);
+    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [authenticated, setAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const verify = async () => {
-            const storedToken = localStorage.getItem('token');
+            const storedToken = localStorage.getItem("token");
 
             if (storedToken) {
                 try {
@@ -22,17 +22,17 @@ export const AuthProvider = ( { children } ) => {
                         setUser({
                             id: verification.id,
                             name: verification.name,
-                            email: verification.email
+                            email: verification.email,
                         });
-                        isAuthenticated(true);
+                        setAuthenticated(true);
                     } else {
                         logout();
                     }
-                } catch (err) {
+                } catch {
                     logout();
                 }
             }
-            isLoading(false);
+            setLoading(false);
         };
 
         verify();
@@ -41,40 +41,65 @@ export const AuthProvider = ( { children } ) => {
     const login = async (credentials) => {
         try {
             const response = await loginService(credentials);
-            localStorage.setItem('token', response.token);
+
+            localStorage.setItem("token", response.token);
             setToken(response.token);
-            setUser(response.token);
-            isAuthenticated(true);
+
+            if (response.user) {
+                setUser(response.user);
+                setAuthenticated(true);
+            } else {
+                await verify(response.token);
+            }
 
             return response;
         } catch (err) {
             throw err;
         }
-    }
+    };
+
+    const verify = async (tokenToVerify) => {
+        try {
+            const verification = await verifyToken(tokenToVerify);
+            if (verification.valid) {
+                setUser({
+                    id: verification.userId,
+                    name: verification.name,
+                    email: verification.email,
+                });
+                setAuthenticated(true);
+            }
+        } catch (err) {
+            logout();
+            throw err;
+        }
+    };
 
     const logout = () => {
-        localStorage.removeItem('token');
+        localStorage.removeItem("token");
         setToken(null);
         setUser(null);
-        isAuthenticated(false);
+        setAuthenticated(false);
     };
 
     if (loading) {
-        return <div>Loading..</div>;
+        return <div>Loading...</div>;
     }
 
     return (
-        <AuthContext.Provider value={{
-            user,
-            token,
-            authenticated,
-            loading,
-            login,
-            logout
-        }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                token,
+                authenticated,
+                loading,
+                login,
+                logout,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
 };
 
-export const useAuth = () => useContext(AuthContext);
+export { AuthContext, AuthProvider };
