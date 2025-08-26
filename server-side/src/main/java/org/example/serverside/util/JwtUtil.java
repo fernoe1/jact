@@ -8,8 +8,6 @@ import org.example.serverside.model.User;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 public class JwtUtil {
@@ -17,12 +15,9 @@ public class JwtUtil {
     private static final long EXPIRATION_TIME = 86400000;
 
     public static String generateToken(User user) {
-        Map<String, Object> claims = new HashMap<>();
-        claims.put("userId", user.getId());
-        claims.put("username", user.getName());
-
         return Jwts.builder()
-                .setClaims(claims)
+                .claim("id", user.getId())
+                .claim("name", user.getName())
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))

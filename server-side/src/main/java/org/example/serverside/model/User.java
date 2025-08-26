@@ -1,10 +1,17 @@
 package org.example.serverside.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User {
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private int id;
     private String name;
     private String email;
     private String password;
+
+    public User() {
+
+    }
 
     public User(String name, String email, String password) {
         this.name = name;

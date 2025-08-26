@@ -63,6 +63,7 @@ public class UserDAO implements IUserDAO {
         String sql = "SELECT * FROM users WHERE email = ?;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {

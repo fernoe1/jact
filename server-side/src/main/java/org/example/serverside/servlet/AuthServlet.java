@@ -31,8 +31,10 @@ public class AuthServlet extends HttpServlet {
             switch (pathInfo) {
                 case "/register":
                     handleRegister(req, resp);
+                    break;
                 case "/login":
                     handleLogin(req, resp);
+                    break;
                 default:
                     resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             }
@@ -55,7 +57,8 @@ public class AuthServlet extends HttpServlet {
                 return;
             }
 
-            if (user.getEmail().equals(userDAO.getUserByEmail(user.getEmail()).getEmail()) ) {
+            User existingUser = userDAO.getUserByEmail(user.getEmail());
+            if (existingUser != null && user.getEmail().equals(existingUser.getEmail())) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 resp.getWriter().write("{\"error\": \"User with that email already exists\"}");
                 return;
@@ -109,6 +112,46 @@ public class AuthServlet extends HttpServlet {
             resp.getWriter().write(mapper.writeValueAsString(responseBody));
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ResponseUtil.setContentAndEncoding(resp);
+
+        String pathInfo = req.getPathInfo();
+
+        if (pathInfo.equals("/verify")) {
+            handleVerify(req, resp);
+        } else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+    }
+
+    private void handleVerify(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ObjectMapper mapper = JsonUtil.getMapper();
+        String authHeader = req.getHeader("Authorization");
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.getWriter().write(("{\"error\": \"Authorization header missing or invalid\"}"));
+            return;
+        }
+
+        String token = authHeader.substring(7);
+
+        if (JwtUtil.validateToken(token)) {
+            Map<String, Object> responseBody = new HashMap<>();
+            responseBody.put("valid", true);
+            responseBody.put("id", JwtUtil.getUserIdFromToken(token));
+            responseBody.put("name", JwtUtil.getUsernameFromToken(token));
+            responseBody.put("email", JwtUtil.getEmailFromToken(token));
+
+            resp.setStatus(HttpServletResponse.SC_OK);
+            resp.getWriter().write(mapper.writeValueAsString(responseBody));
+        } else {
+            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            resp.getWriter().write("{\"error\": \"Invalid token\"}");
         }
     }
 }
