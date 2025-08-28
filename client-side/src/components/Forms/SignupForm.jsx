@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useSignup } from '../../hooks/useSignup';
 import s from './SignupForm.module.css';
 
 const validateName = (name) => {
@@ -49,7 +50,7 @@ const SignupForm = () => {
         password: false
     });
 
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    const {isSubmitting, authError, signup } = useSignup();
 
     useEffect(() => {
         const newErrors = { ...errors };
@@ -77,9 +78,8 @@ const SignupForm = () => {
         }));
     }
 
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
 
         isTouched({
             name: true,
@@ -88,10 +88,8 @@ const SignupForm = () => {
         });
 
         if (!errors.name && !errors.email && !errors.password) {
-            console.log(formData.name, formData.email, formData.password)
+            await signup(formData.name, formData.email, formData.password);
         }
-
-        setIsSubmitting(false);
     }
 
     
