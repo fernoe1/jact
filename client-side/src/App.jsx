@@ -4,6 +4,7 @@ import Home from './views/Home';
 import Shop from './views/Shop';
 import './styles/main.css';
 import Signup from './views/Signup';
+import Signin from './views/Signin';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/signin" element={<Signin />} />
         </Routes>
       </BrowserRouter>
     </>

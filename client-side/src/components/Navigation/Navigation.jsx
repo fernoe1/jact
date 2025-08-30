@@ -10,8 +10,6 @@ import AuthButton from './AuthButton/AuthButton';
 const Navigation = () => {
     const navigate = useNavigate();
 
-
-
     return (
         <div>
             <nav className={s.navbar}>
@@ -39,6 +37,7 @@ const Navigation = () => {
                     <AuthButton 
                         className={s.navbar__auth} 
                         text="Sign In" 
+                        onClick={() => {navigate("/signin")}}
                     />
                 </div>
             </nav>
