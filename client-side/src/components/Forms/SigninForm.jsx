@@ -31,7 +31,7 @@ const SigninForm = () => {
         password: false
     });
 
-    const [ signin, isSubmitting, authError ] = useSignin();
+    const { signin, isSubmitting, authError } = useSignin();
 
     useEffect(() => {
         const newErrors = { ...errors };

@@ -50,7 +50,7 @@ const SignupForm = () => {
         password: false
     });
 
-    const {isSubmitting, authError, signup } = useSignup();
+    const { isSubmitting, authError, signup } = useSignup();
 
     useEffect(() => {
         const newErrors = { ...errors };
