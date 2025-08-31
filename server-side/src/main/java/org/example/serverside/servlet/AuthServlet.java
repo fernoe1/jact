@@ -1,5 +1,6 @@
 package org.example.serverside.servlet;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,8 +15,6 @@ import org.example.serverside.util.ResponseUtil;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @WebServlet(name = "authServlet", value = "/auth/*")
 public class AuthServlet extends HttpServlet {
@@ -68,8 +67,9 @@ public class AuthServlet extends HttpServlet {
             user.setPassword(hashedPassword);
 
             if (userDAO.addUser(user)) {
-                resp.setStatus(HttpServletResponse.SC_CREATED);
-                resp.getWriter().write("{\"message\": \"User created successfully\"}");
+                resp.setStatus(HttpServletResponse.SC_OK);
+                String token = JwtUtil.generateToken(user);
+                resp.getWriter().write("{\"token\": \"" + token + "\"}");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -77,81 +77,33 @@ public class AuthServlet extends HttpServlet {
     }
 
     private void handleLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = JsonUtil.getMapper();
+      ObjectMapper mapper = JsonUtil.getMapper();
+      JsonNode jsonNode = mapper.readTree(req.getReader());
 
-        try {
-            User loginRequest = mapper.readValue(req.getReader(), User.class);
+      try {
+            String email = jsonNode.get("email").asText();
+            String password = jsonNode.get("password").asText();
 
-            if (loginRequest.getName() == null || loginRequest.getName().trim().isEmpty() ||
-                loginRequest.getPassword() == null || loginRequest.getPassword().trim().isEmpty()) {
+            if (email == null || email.trim().isEmpty() ||
+                password == null || password.trim().isEmpty()) {
                 resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                resp.getWriter().write("{\"error\": \"Username and password are required\"}");
+                resp.getWriter().write("{\"error\": \"Email and password are required\"}");
                 return;
             }
 
-            User user = userDAO.getUserByName(loginRequest.getName());
+            User user = userDAO.getUserByEmail(email);
 
-            if (user == null || !BCrypt.checkpw(loginRequest.getPassword(), user.getPassword())) {
+            if (user == null || !BCrypt.checkpw(password, user.getPassword())) {
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 resp.getWriter().write("{\"error\": \"Either username or password are invalid\"}");
                 return;
             }
 
             String token = JwtUtil.generateToken(user);
-
-            Map<String, Object> responseBody = new HashMap<>();
-            responseBody.put("message", "Login successful");
-            responseBody.put("token", token);
-            responseBody.put("user", Map.of(
-                    "id", user.getId(),
-                    "name", user.getName(),
-                    "email", user.getEmail()
-            ));
-
             resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().write(mapper.writeValueAsString(responseBody));
+            resp.getWriter().write("{\"token\": \"" + token + "\"}");
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ResponseUtil.setContentAndEncoding(resp);
-
-        String pathInfo = req.getPathInfo();
-
-        if (pathInfo.equals("/verify")) {
-            handleVerify(req, resp);
-        } else {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
-    }
-
-    private void handleVerify(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ObjectMapper mapper = JsonUtil.getMapper();
-        String authHeader = req.getHeader("Authorization");
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            resp.getWriter().write(("{\"error\": \"Authorization header missing or invalid\"}"));
-            return;
-        }
-
-        String token = authHeader.substring(7);
-
-        if (JwtUtil.validateToken(token)) {
-            Map<String, Object> responseBody = new HashMap<>();
-            responseBody.put("valid", true);
-            responseBody.put("id", JwtUtil.getUserIdFromToken(token));
-            responseBody.put("name", JwtUtil.getUsernameFromToken(token));
-            responseBody.put("email", JwtUtil.getEmailFromToken(token));
-
-            resp.setStatus(HttpServletResponse.SC_OK);
-            resp.getWriter().write(mapper.writeValueAsString(responseBody));
-        } else {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            resp.getWriter().write("{\"error\": \"Invalid token\"}");
         }
     }
 }

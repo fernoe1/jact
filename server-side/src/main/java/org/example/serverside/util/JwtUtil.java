@@ -16,9 +16,7 @@ public class JwtUtil {
 
     public static String generateToken(User user) {
         return Jwts.builder()
-                .claim("id", user.getId())
-                .claim("name", user.getName())
-                .setSubject(user.getEmail())
+                .setSubject(String.valueOf(user.getId()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SECRET_KEY)
@@ -34,16 +32,8 @@ public class JwtUtil {
         }
     }
 
-    public static String getEmailFromToken(String token) {
+    public static String getSub(String token) {
         return getClaimFromToken(token, Claims::getSubject);
-    }
-
-    public static String getUsernameFromToken(String token) {
-        return getClaimFromToken(token, claims -> claims.get("username", String.class));
-    }
-
-    public static int getUserIdFromToken(String token) {
-        return getClaimFromToken(token, claims -> claims.get("userId", Integer.class));
     }
 
     private static <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {
