@@ -5,6 +5,8 @@ import org.example.serverside.database.DBConnection;
 import org.example.serverside.model.Sneaker;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class SneakerDAO implements ISneakerDAO {
     private final Connection con;
@@ -56,5 +58,26 @@ public class SneakerDAO implements ISneakerDAO {
         }
 
         return sneaker;
+    }
+
+    @Override
+    public List<Sneaker> getSneakers() {
+        List<Sneaker> sneakers = new ArrayList<>();
+
+        String sql = "SELECT * FROM sneakers";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                sneakers.add(new Sneaker(rs.getInt("id"), rs.getString("name"),
+                        rs.getString("brand"), rs.getString("fit"),
+                        rs.getDouble("price"), ((String[]) rs.getArray("images").getArray())));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return sneakers;
     }
 }

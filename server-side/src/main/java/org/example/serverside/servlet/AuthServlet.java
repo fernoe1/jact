@@ -25,6 +25,7 @@ public class AuthServlet extends HttpServlet {
         ResponseUtil.setContentAndEncoding(resp);
 
         String pathInfo = req.getPathInfo();
+        System.out.println(pathInfo);
 
         try {
             switch (pathInfo) {
