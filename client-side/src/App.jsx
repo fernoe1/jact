@@ -1,7 +1,6 @@
 import { BrowserRouter , Routes , Route } from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import Home from './views/Home';
-import Shop from './views/Shop';
 import './styles/main.css';
 import Signup from './views/Signup';
 import Signin from './views/Signin';
@@ -13,7 +12,6 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/signin" element={<Signin />} />
         </Routes>
