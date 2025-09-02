@@ -1,0 +1,32 @@
+.bannerContainer {
+    height: 400px;
+    background-color: var(--mobby-special);
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+
+.bannerImage {
+    height: 800px;
+    margin-right: calc(var(--l-size));
+}
+
+.bannerTextContainer {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-bengali);
+    color: var(--cj2-black-brown);
+    text-align: left;
+    margin-left: calc(var(--s-size) + var(--xxl-size))
+}
+
+.bannerTextHeadline {
+    font-size: var(--l-size);
+}
+
+.bannerText {
+    font-size: var(--m-size)
+}

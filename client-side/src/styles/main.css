@@ -5,6 +5,10 @@
     --cj2-dark-brown: #594731;
     --cj2-black-brown: #312F2C;
 
+    --cj1-light-brown: #f2efe5;
+
+    --mobby-special: #9cbcba;
+
     --font-bengali: 'Noto Serif Bengali', serif;
 
     --xs-size: 1rem;
@@ -13,8 +17,10 @@
     --l-size: 3.2rem;
     --xl-size: 4.8rem;
     --xxl-size: 5.6rem;
+}
 
-    background-color: var(--cj2-black-brown);
+body {
+    background-color: var(--cj1-light-brown);
 }
 
 * {
