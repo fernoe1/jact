@@ -1,0 +1,6 @@
+.navbar {
+    background-color: var(--cj2-floral-white);
+    height: 8rem;
+    display: flex;
+    align-items: center;
+}

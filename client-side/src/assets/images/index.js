@@ -1,7 +1,5 @@
-import cjactLogo from './cjact-logo.svg';
-import cjactLogoTransparent from './cjact-logo-transparent.svg';
+import cjactLogo from './cjact-logo.png';
 
 export {
-    cjactLogo,
-    cjactLogoTransparent
+    cjactLogo
 }

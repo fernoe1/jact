@@ -1,0 +1,16 @@
+.navitem {
+    padding: var(--xs-size)
+}
+
+.navitemLink {
+    text-decoration: none;
+    color: var(--cj2-dark-brown);
+    font-family: var(--font-bengali);
+    font-size: var(--font-size-medium);
+    margin-left: var(--s-size);
+    transition: color 0.3 ease;
+}
+
+.navitemLink:hover {
+    color: #312F2C;
+}
