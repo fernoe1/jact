@@ -6,7 +6,7 @@ const Banner = () => {
     return (
         <div className={s.bannerContainer}>
             <div className={s.bannerTextContainer}>
-                <span className={s.bannerTextHeadline}>Cactus Jact!?</span>
+                <span className={s.bannerTextHeadline}>Jact</span>
                 <span className={s.bannerText}>A demo showcase for Travis Scott–collaborated sneakers, built with Jakarta and React.</span>
             </div>
             <div className={s.bannerImageContainer}>

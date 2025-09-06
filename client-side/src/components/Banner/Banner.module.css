@@ -1,17 +1,29 @@
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .bannerContainer {
+    margin-left: 180px;
+    margin-right: 180px;
     height: 400px;
     background-color: var(--mobby-special);
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    margin-bottom: var(--xxl-size);
+    margin-top: var(--xs-size);
+
+    animation: fade-down 1s;
+}
+
+.bannerImageContainer {
     overflow: hidden;
 }
 
 .bannerImage {
-    height: 800px;
-    margin-right: calc(var(--l-size));
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .bannerTextContainer {
@@ -20,13 +32,15 @@
     font-family: var(--font-bengali);
     color: var(--cj2-black-brown);
     text-align: left;
-    margin-left: calc(var(--s-size) + var(--xxl-size))
+    justify-content: center;
 }
 
 .bannerTextHeadline {
     font-size: var(--l-size);
+    margin-left: var(--xl-size);
 }
 
 .bannerText {
-    font-size: var(--m-size)
+    font-size: var(--m-size);
+    margin-left: var(--xl-size);
 }
