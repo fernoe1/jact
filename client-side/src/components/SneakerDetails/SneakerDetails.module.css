@@ -1,0 +1,61 @@
+.sneakerDetailsContainer {
+    width: 1380px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+.sneakerBigImgContainer {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.sneakerSmallImgContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.sneakerBigImgs {
+    margin-top: 206px;
+    margin-bottom: 56px;
+}
+
+.sneakerSmallImgs {
+    margin-bottom: 53px;
+}
+
+.sneakerBigImgs img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.sneakerSmallImgs img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.sneakerContainerOneFr {
+    height: 870px;
+}
+
+.sneakerDesc {
+    margin-top: var(--l-size);
+    position: sticky;
+    top: calc(128px + var(--xs-size));
+    font-family: var(--font-roboto);
+}
+
+.sneakerBrand {
+    font-size: var(--m-size);
+    margin-bottom: calc(var(--m-size) - var(--s-size));
+}
+
+.sneakerName {
+
+}
+
+.sneakerPrice {
+    font-size: var(--m-size);
+}
