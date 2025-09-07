@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import s from './SneakerCard.module.css';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 
@@ -6,6 +7,11 @@ const SneakerCard = ({ sneaker }) => {
     const [imgHovered, setImgHovered] = useState(false);
     const [descHovered, setDescHovered] = useState(false);
     const [wishlistHovered, setWishlistHovered] = useState(false);
+
+    const navigate = useNavigate();
+    const navClick = () => {
+        navigate(`/sneakers/${sneaker.id}`)
+    }
 
 
     return (
@@ -24,6 +30,7 @@ const SneakerCard = ({ sneaker }) => {
                 className={s.sneakerImageContainer}
                 onMouseEnter={() => setImgHovered(true)}
                 onMouseLeave={() => setImgHovered(false)}
+                onClick={() => navClick()}
             >
                 <img 
                     className={`${s.sneakerImage} ${imgHovered ? s.hidden : s.visible}`} 
@@ -41,6 +48,7 @@ const SneakerCard = ({ sneaker }) => {
                 className={s.sneakerDescContainer}
                 onMouseEnter={() => setDescHovered(true)}
                 onMouseLeave={() => setDescHovered(false)}
+                onClick={() => navClick()}
             >
                 <div className={`${s.sneakerDesc} ${descHovered ? s.hidden : s.visible}`}>
                     <p className={s.sneakerBrand}>{sneaker.brand}</p>
