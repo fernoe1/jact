@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import s from './SneakerDetails.module.css';
+import Dropdown from './Dropdown';
+import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 
 const SneakerDetails = () => {
     const [sneaker, setSneaker] = useState(null);
+    const [size, setSize] = useState(null);
     const { id } = useParams();
+
+    const [wishHovered, setWishHovered] = useState(false);
 
     useEffect(() => {
         const fetchSneaker = async () => {
@@ -52,16 +57,26 @@ const SneakerDetails = () => {
                 <div className={s.sneakerDesc}>
                     <p className={s.sneakerBrand}>{sneaker?.brand}</p>
                     <p className={s.sneakerName}>{sneaker?.name}</p>
-                    <label for="size">Select size:</label>
-                    <input list="sizes" id="size" name="size" placeholder="Choose size"/>
-
-                    <datalist id="sizes">
-                    <option value="Small"/>
-                    <option value="Medium"/>
-                    <option value="Large"/>
-                    <option value="Extra Large"/>
-                    </datalist>
-
+                    <Dropdown 
+                        value={size}
+                        setValue={setSize}
+                        options={[36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52]}
+                        placeholder={'Select size'}
+                    />
+                    <div className={s.bagOrWishlist}>
+                        <div className={s.bag}>
+                            <p>Add to Cart</p>
+                        </div>
+                        <div
+                            className={s.wish}
+                            onMouseEnter={() => setWishHovered(true)}
+                            onMouseLeave={() => setWishHovered(false)}
+                        >
+                            <span className={s.wishHeart}>
+                                {wishHovered ? <HeartFilled /> : <HeartOutlined />}
+                            </span>
+                        </div>
+                    </div>
                     <p className={s.sneakerPrice}>${sneaker?.price}</p>
                 </div>
             </div>

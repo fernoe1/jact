@@ -53,9 +53,58 @@
 }
 
 .sneakerName {
-
+    margin: var(--xs-size) 0;
 }
 
 .sneakerPrice {
     font-size: var(--m-size);
 }
+
+.bagOrWishlist {
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    font-size: calc(var(--s-size) + 1px);
+
+    margin: var(--xs-size) 0 var(--s-size) 0;
+}
+
+.bag {
+    width: 420px;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.2s ease-in-out;
+    color: white;
+}
+
+.wish {
+    border: 1px solid black;
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wishHeart {
+    padding: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bag:hover {
+    border-color: var(--mobby-special);
+    cursor: pointer;
+}
+
+.wish:hover {
+    color: var(--mobby-special);
+    cursor: pointer;
+}
+
