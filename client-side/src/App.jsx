@@ -9,30 +9,41 @@ import NavLeft from './components/Navigation/Parts/NavLeft';
 import NavMiddle from './components/Navigation/Parts/NavMiddle';
 import NavRight from './components/Navigation/Parts/NavRight';
 import Sneaker from './views/Sneaker';
+import { HeartOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
+import { AuthContextProvider } from './context/AuthContext';
+import { BasketContextProvider } from './context/BasketContext';
 
 function App() {
   return (
      <>
-      <BrowserRouter>
+     <AuthContextProvider>
+      <BasketContextProvider>
+        
+          <BrowserRouter>
 
-        <Navigation>
-          <NavLeft>
-            <NavItem toUrl={route.HOME} text="Home" />
-            <NavItem toUrl={route.SHOP} text="Shop" />
-          </NavLeft>
-          <NavMiddle>
-            <NavLogo />
-          </NavMiddle>
-          <NavRight>
+            <Navigation>
+              <NavLeft>
+                <NavItem toUrl={route.HOME} text="Home" />
+                <NavItem toUrl={route.SHOP} text="Shop" />
+              </NavLeft>
+              <NavMiddle>
+                <NavLogo />
+              </NavMiddle>
+              <NavRight>
+                <NavItem toUrl={route.HOME} text={<UserOutlined />} />
+                <NavItem toUrl={route.HOME} text={<ShoppingCartOutlined />} />
+                <NavItem toUrl={route.HOME} text={<HeartOutlined />} />
+              </NavRight>
+            </Navigation>
 
-          </NavRight>
-        </Navigation>
+            <Routes>
+              <Route path="/" element={<Home />}/>
+              <Route path="/sneakers/:id" element={<Sneaker />}/>
+            </Routes>
+          </BrowserRouter>
 
-        <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/sneakers/:id" element={<Sneaker />}/>
-        </Routes>
-      </BrowserRouter>
+        </BasketContextProvider>
+      </AuthContextProvider>
     </>
   );
 }
