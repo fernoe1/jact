@@ -22,12 +22,12 @@ export const basketReducer = (state, action) => {
 }
 
 export const BasketContextProvider = ({ children }) => {
-    const [state, dispath] = useReducer(basketReducer, {
+    const [state, dispatch] = useReducer(basketReducer, {
         basket: []
     });
 
     return (
-        <BasketContext.Provider>
+        <BasketContext.Provider value={{...state, dispatch}}>
             { children }
         </BasketContext.Provider>
     );

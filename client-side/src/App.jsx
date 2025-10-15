@@ -18,6 +18,7 @@ function App() {
      <>
      <AuthContextProvider>
       <BasketContextProvider>
+        <FavoriteContextProvider>
         
           <BrowserRouter>
 
@@ -42,8 +43,9 @@ function App() {
             </Routes>
           </BrowserRouter>
 
-        </BasketContextProvider>
-      </AuthContextProvider>
+        </FavoriteContextProvider>
+      </BasketContextProvider>
+    </AuthContextProvider>
     </>
   );
 }
