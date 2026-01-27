@@ -9,9 +9,12 @@ import NavLeft from './components/Navigation/Parts/NavLeft';
 import NavMiddle from './components/Navigation/Parts/NavMiddle';
 import NavRight from './components/Navigation/Parts/NavRight';
 import Sneaker from './views/Sneaker';
+import Signup from './views/Signup';
+import Signin from './views/Signin';
 import { HeartOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import { AuthContextProvider } from './context/AuthContext';
 import { BasketContextProvider } from './context/BasketContext';
+import { FavoriteContextProvider } from './context/FavoriteContext';
 
 function App() {
   return (
@@ -40,6 +43,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />}/>
               <Route path="/sneakers/:id" element={<Sneaker />}/>
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/signin" element={<Signin />} />
             </Routes>
           </BrowserRouter>
 

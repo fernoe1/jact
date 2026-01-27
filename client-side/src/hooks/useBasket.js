@@ -20,4 +20,6 @@ export const useBasket = () => {
     const clearBasket = async () => {
         dispatch({type: "CLEAR"});
     }
+
+    return { addBasket, removeBasket, clearBasket };
 }

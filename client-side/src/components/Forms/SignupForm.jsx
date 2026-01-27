@@ -104,7 +104,7 @@ const SignupForm = () => {
                 </label>
                 <input
                     className={`${s.formInput} ${errors.name ? s.formInputError : ''}`}
-                    type="text"
+                    type="number"
                     id="name"
                     value={formData.name}
                     onChange={(e) => handeOnChange(e)}

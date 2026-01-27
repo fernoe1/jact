@@ -20,4 +20,6 @@ export const useFavorite = () => {
     const clearFavorite = async () => {
         dispatch({type: 'CLEAR'});
     };
+
+    return { addFavorite, removeFavorite, clearFavorite };
 }

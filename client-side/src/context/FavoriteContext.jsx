@@ -23,8 +23,10 @@ export const favoriteReducer = (state, action) => {
 
 export const FavoriteContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(favoriteReducer, {
-        favorites: []
+        favorites: new Set()
     });
+
+    console.log('FavoriteContext state:', state);
 
     return (
         <FavoriteContext.Provider value={{...state, dispatch}}>

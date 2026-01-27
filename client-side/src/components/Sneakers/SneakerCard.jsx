@@ -2,11 +2,24 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './SneakerCard.module.css';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
+import { useFavorite } from '../../hooks/useFavorite';
 
 const SneakerCard = ({ sneaker }) => {
     const [imgHovered, setImgHovered] = useState(false);
     const [descHovered, setDescHovered] = useState(false);
     const [wishlistHovered, setWishlistHovered] = useState(false);
+    const [favorited, setFavorited] = useState(false);
+
+    const { addFavorite, removeFavorite } = useFavorite();
+    const handleFavorite = async () => {
+        if (!favorited) {
+            setFavorited(true);
+            addFavorite(sneaker);
+        } else {
+            setFavorited(false);
+            removeFavorite(sneaker);
+        }
+    }
 
     const navigate = useNavigate();
     const navClick = () => {
@@ -20,9 +33,10 @@ const SneakerCard = ({ sneaker }) => {
                     className={s.sneakerWishlistContainer}
                     onMouseEnter={() => setWishlistHovered(true)}
                     onMouseLeave={() => setWishlistHovered(false)}
+                    onClick={() => handleFavorite()}
                 >
-                    <div className={s.sneakerWishlist}>
-                        {wishlistHovered ? <HeartFilled /> : <HeartOutlined />}
+                    <div className={`${s.sneakerWishlist} ${favorited ? s.favorited : ''}`}>
+                        {favorited ? <HeartFilled /> : wishlistHovered ? <HeartFilled /> : <HeartOutlined />}
                     </div>
             </div>
 

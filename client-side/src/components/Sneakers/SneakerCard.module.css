@@ -40,6 +40,10 @@
   cursor: pointer;
 }
 
+.favorited {
+  color: var(--mobby-special);
+}
+
 .sneakerImage {
     position: absolute;
     width: 100%;
