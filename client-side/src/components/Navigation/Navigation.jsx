@@ -1,8 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import s from './Navigation.module.css';
+import NavLeft from './Parts/NavLeft';
+import NavItem from './NavItem';
+import NavRight from './Parts/NavRight';
+import { route } from '../../constants';
+import NavMiddle from './Parts/NavMiddle';
+import NavLogo from './NavLogo';
+import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
 const Navigation = ({ children }) => {
     const [scrolled, isScrolled] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -17,7 +26,23 @@ const Navigation = ({ children }) => {
     return (
         <div className={`${s.navbarContainer} ${scrolled ? s.scrolled : ''}`}>
             <nav className={s.navbar}>
-                { children }
+                <NavLeft>
+                    <NavItem toUrl={route.HOME} text="Home" />
+                    <NavItem toUrl={route.SHOP} text="Shop" />
+                </NavLeft>
+                <NavMiddle>
+                    <NavLogo />
+                </NavMiddle>
+                <NavRight>
+                    <NavItem toUrl={route.HOME} text={<ShoppingCartOutlined style={{ fontSize: 24 }} />} />
+                    <NavItem toUrl={route.HOME} text={<HeartOutlined style={{ fontSize: 24 }} />} />
+                    {location.pathname !== route.SIGN_UP && (
+                    <NavItem toUrl={route.SIGN_UP} text="Sign up" />
+                    )}
+                    {location.pathname !== route.SIGN_IN && (
+                    <NavItem toUrl={route.SIGN_IN} text="Sign in" />
+                    )}
+                </NavRight>
             </nav>
         </div>
     );

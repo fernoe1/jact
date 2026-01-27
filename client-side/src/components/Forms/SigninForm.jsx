@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import s from './SigninForm.module.css';
 import { useSignin } from "../../hooks/useSignin";
+import { NavLink } from "react-router-dom";
+import { route } from "../../constants";
 
 const validateEmail = (email) => {
     if (!email.trim()) return "Email is required";
@@ -31,7 +33,7 @@ const SigninForm = () => {
         password: false
     });
 
-    const { signin, isSubmitting, authError } = useSignin();
+    const { signin, isSubmitting, authError, setAuthError } = useSignin();
 
     useEffect(() => {
         const newErrors = { ...errors };
@@ -60,6 +62,9 @@ const SigninForm = () => {
 
     const handleOnSubmit = async(e) => {
         e.preventDefault();
+        if (authError != null) {
+            setAuthError(null);
+        }
         
         if (!errors.email && !errors.password) {
             await signin(formData.email, formData.password);
@@ -67,7 +72,14 @@ const SigninForm = () => {
     }
 
     return (
-        <form className={s.form} onSubmit={(e) => handleOnSubmit(e)} noValidate>
+        <form className={`${s.form} ${authError ? s.formError : ''}`} onSubmit={(e) => handleOnSubmit(e)} noValidate>
+            
+            {authError && (
+                <div className={s.formInputErrorToast}>
+                    <p>{authError}</p>
+                </div>
+            )}
+
             <div className={s.formInputContainer}>
                 <label
                     className={`${s.formLabel} ${errors.email ? s.formLabelError : ''}`}
@@ -105,6 +117,10 @@ const SigninForm = () => {
                 >
                     {isSubmitting ? "Signing In..." : "Sign In"}
                 </button>
+            </div>
+
+            <div className={s.formUnderText}>
+                <p>Don't have an account? <NavLink className={s.formUnderTextLink} to={route.SIGN_UP}>Sign up</NavLink></p>
             </div>
         </form>
     );

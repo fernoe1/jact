@@ -11,7 +11,7 @@ import NavRight from './components/Navigation/Parts/NavRight';
 import Sneaker from './views/Sneaker';
 import Signup from './views/Signup';
 import Signin from './views/Signin';
-import { HeartOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
+import { HeartOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { AuthContextProvider } from './context/AuthContext';
 import { BasketContextProvider } from './context/BasketContext';
 import { FavoriteContextProvider } from './context/FavoriteContext';
@@ -25,20 +25,7 @@ function App() {
         
           <BrowserRouter>
 
-            <Navigation>
-              <NavLeft>
-                <NavItem toUrl={route.HOME} text="Home" />
-                <NavItem toUrl={route.SHOP} text="Shop" />
-              </NavLeft>
-              <NavMiddle>
-                <NavLogo />
-              </NavMiddle>
-              <NavRight>
-                <NavItem toUrl={route.HOME} text={<UserOutlined />} />
-                <NavItem toUrl={route.HOME} text={<ShoppingCartOutlined />} />
-                <NavItem toUrl={route.HOME} text={<HeartOutlined />} />
-              </NavRight>
-            </Navigation>
+            <Navigation />
 
             <Routes>
               <Route path="/" element={<Home />}/>

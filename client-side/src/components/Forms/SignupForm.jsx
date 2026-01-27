@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSignup } from '../../hooks/useSignup';
 import s from './SignupForm.module.css';
+import { route } from '../../constants';
+import { NavLink } from 'react-router-dom';
 
 const validateName = (name) => {
     if (!name.trim()) return "Full name is required";
@@ -50,7 +52,7 @@ const SignupForm = () => {
         password: false
     });
 
-    const { isSubmitting, authError, signup } = useSignup();
+    const { isSubmitting, authError, signup, setAuthError } = useSignup();
 
     useEffect(() => {
         const newErrors = { ...errors };
@@ -80,6 +82,9 @@ const SignupForm = () => {
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
+        if (authError != null) {
+            setAuthError(null);
+        }
 
         isTouched({
             name: true,
@@ -94,7 +99,13 @@ const SignupForm = () => {
 
     
     return (
-        <form className={s.form} onSubmit={(e) => handleOnSubmit(e)} noValidate>
+        <form className={`${s.form} ${authError ? s.formError : ''}`} onSubmit={(e) => handleOnSubmit(e)} noValidate>
+            {authError && (
+                <div className={s.formInputErrorToast}>
+                    <p>{authError}</p>
+                </div>
+            )}
+
             <div className={s.formInputContainer}>
                 <label
                     htmlFor="name"
@@ -104,7 +115,7 @@ const SignupForm = () => {
                 </label>
                 <input
                     className={`${s.formInput} ${errors.name ? s.formInputError : ''}`}
-                    type="number"
+                    type="name"
                     id="name"
                     value={formData.name}
                     onChange={(e) => handeOnChange(e)}
@@ -148,6 +159,10 @@ const SignupForm = () => {
                 >
                     {isSubmitting ? "Signing Up..." : "Sign Up"}
                 </button>
+            </div>
+
+            <div className={s.formUnderText}>
+                <p>Already have an account? <NavLink className={s.formUnderTextLink} to={route.SIGN_IN}>Sign in</NavLink></p>
             </div>
         </form>
     );

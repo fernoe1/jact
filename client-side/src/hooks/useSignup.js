@@ -9,7 +9,7 @@ export const useSignup = () => {
     const signup = async ( name, email, password ) => {
         setIsSubmitting(true);
 
-        const response = await fetch('http://localhost:8080/auth/register', {
+        const response = await fetch('http://localhost:4000/auth/signup', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ name, email, password })
@@ -29,5 +29,5 @@ export const useSignup = () => {
         }
     }
 
-    return { signup, isSubmitting, authError }
+    return { signup, isSubmitting, authError, setAuthError }
 }

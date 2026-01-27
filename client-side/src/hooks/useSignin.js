@@ -9,7 +9,7 @@ export const useSignin = () => {
     const signin = async (email, password) => {
         setIsSubmitting(true);
 
-        const response = await fetch('http://localhost:8080/auth/login', {
+        const response = await fetch('http://localhost:4000/auth/signin', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
@@ -29,5 +29,5 @@ export const useSignin = () => {
         }
     }
 
-    return { isSubmitting, authError, signin };
+    return { isSubmitting, authError, setAuthError, signin };
 }

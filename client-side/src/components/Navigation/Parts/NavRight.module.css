@@ -6,5 +6,4 @@
 
 .navbarRight > ul {
     margin-left: calc(var(--m-size) + var(--s-size));
-    font-size: calc(var(--m-size) + var(--s-size) - var(--xs-size));
 }
