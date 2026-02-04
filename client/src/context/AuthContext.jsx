@@ -38,7 +38,7 @@ export const AuthContextProvider = ({ children }) => {
 
             try {
                 const { _id } = jwtDecode(token);
-                const response = await fetch(`http://localhost:4000/users/${_id}`, {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${_id}`, {
                     method: "GET",
                     headers: { Authorization: `Bearer ${token}` }
                 });

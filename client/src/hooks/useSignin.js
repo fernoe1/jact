@@ -10,7 +10,7 @@ export const useSignin = () => {
     const signin = async (email, password) => {
         setIsSubmitting(true);
 
-        const response = await fetch('http://localhost:4000/users/signin', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/users/signin`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
@@ -29,7 +29,7 @@ export const useSignin = () => {
             localStorage.setItem('token', json.token);
 
             const { _id } = jwtDecode(json.token);
-            const response = await fetch(`http://localhost:4000/users/${_id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${_id}`, {
                 method: "GET",
                 headers: { Authorization: `Bearer ${json.token}` }
             }); 

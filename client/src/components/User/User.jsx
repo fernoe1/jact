@@ -21,7 +21,7 @@ const User = () => {
 
             const decoded = jwtDecode(token);
 
-            const res = await fetch(`http://localhost:4000/users/${decoded._id}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/users/${decoded._id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -51,7 +51,7 @@ const User = () => {
         e.preventDefault();
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:4000/users", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const User = () => {
     const verifyUser = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:4000/users/sendmail", {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users/sendmail`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

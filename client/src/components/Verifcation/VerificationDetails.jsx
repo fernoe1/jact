@@ -22,7 +22,7 @@ const VerificationDetails = () => {
                 }
 
                 const response = await fetch(
-                    `http://localhost:4000/users/verify?token=${mailToken}`
+                    `${process.env.REACT_APP_API_URL}/users/verify?token=${mailToken}`
                 );
                 const json = await response.json();
 

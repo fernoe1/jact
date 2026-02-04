@@ -8,7 +8,7 @@ const Shop = () => {
     useEffect(() => {
         const fetchSneakers = async () => {
             try {
-                const response = await fetch('http://localhost:4000/sneakers');
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/sneakers`);
                 const json = await response.json();
 
                 if (!response.ok) {
