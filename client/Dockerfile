@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENV REACT_APP_API_URL=http://localhost:4000
+ENV REACT_APP_API_URL=https://jactback.onrender.com
 
 RUN npm install
 RUN npm run build
