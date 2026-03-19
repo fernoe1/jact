@@ -12,6 +12,8 @@ npm build
 ```
 
 # Docker
+change ENV REACT_APP_API_URL to your backend url.
+
 build image
 ```
 docker build -t <whatevername> .
